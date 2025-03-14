@@ -1,0 +1,23 @@
+version: '3'
+
+services:
+  wiremock:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: wiremock-api-mock:latest
+    container_name: wiremock-api-mock
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./mappings:/home/wiremock/mappings
+      - ./__files:/home/wiremock/__files
+    environment:
+      - WIREMOCK_OPTIONS=--global-response-templating,--verbose,--local-response-templating
+    restart: unless-stopped
+    networks:
+      - wiremock-network
+
+networks:
+  wiremock-network:
+    driver: bridge

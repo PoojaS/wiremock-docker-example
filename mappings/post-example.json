@@ -1,0 +1,30 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "/api/example",
+    "headers": {
+      "Content-Type": {
+        "equalTo": "application/json"
+      }
+    },
+    "bodyPatterns": [
+      {
+        "matchesJsonPath": "$.name"
+      }
+    ]
+  },
+  "response": {
+    "status": 201,
+    "headers": {
+      "Content-Type": "application/json",
+      "Location": "/api/example/{{randomValue length=5 type='NUMERIC'}}"
+    },
+    "jsonBody": {
+      "id": "{{randomValue length=5 type='NUMERIC'}}",
+      "name": "{{jsonPath request.body '$.name'}}",
+      "status": "created",
+      "createdAt": "{{now format='yyyy-MM-dd HH:mm:ss'}}",
+      "message": "Resource created successfully"
+    }
+  }
+}
