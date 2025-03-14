@@ -1,0 +1,31 @@
+{
+    "request": {
+      "method": "POST",
+      "url": "/organisation",
+      "headers": {
+        "Content-Type": {
+          "equalTo": "application/json"
+        }
+      },
+      "bodyPatterns": [
+        {
+          "matchesJsonPath": "$.name"
+        }
+      ]
+    },
+    "response": {
+      "status": 201,
+      "headers": {
+        "Content-Type": "application/json",
+        "Location": "/organisation/{{randomValue length=5 type='NUMERIC'}}"
+      },
+      "jsonBody": {
+        "id": "{{randomValue length=5 type='NUMERIC'}}",
+        "name": "{{jsonPath request.body '$.name'}}",
+        "status": "created",
+        "createdAt": "{{now format='yyyy-MM-dd HH:mm:ss'}}",
+        "message": "Organisation created successfully"
+      }
+    }
+  }
+  
